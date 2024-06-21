@@ -7,11 +7,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import base64
+import folium
 
 # Initialize Flask application
-# Set up Flask
 app = Flask(__name__, template_folder="", static_url_path='/static')
 CORS(app)
+
 # Set up the database connection
 engine = create_engine("sqlite:///mydatabase-nojoin.sqlite")
 Base = automap_base()
@@ -38,6 +39,7 @@ def welcome():
         "/api/allcolumns<br/>"
         "/api/regionnames<br/>"
         "/api/plot/<region_name><br/>"
+        "/api/map/<marker><br/>"
     )
 
 @app.route("/")
@@ -111,6 +113,39 @@ def plot(region_name):
     plt.close()
 
     return jsonify({'plot_url': plot_url})
+
+@app.route("/api/map/<marker>")
+def generate_map(marker):
+    """Generate map for the selected marker"""
+    # Read CSV file to get data
+    csv_file = r"C:\Users\Sarah Son Kim\class24\NU-VIRT-DATA-PT-02-2024-U-LOLC\02-Homework\Project3_Team5\cleaned_Project3_Price_Listings_or_cleaned.csv"
+    df = pd.read_csv(csv_file)
+
+    # Columns from F to CB
+    columns = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ', 'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB']
+
+    markers = {}
+
+    for column in columns:
+        # Get the maximum value for the current column
+        max_price_cut_index = df[column].idxmax()
+        state_name = df.at[max_price_cut_index, 'StateName']
+        latitude = df.at[max_price_cut_index, 'Latitude']
+        longitude = df.at[max_price_cut_index, 'Longitude']
+
+        markers[state_name] = (latitude, longitude)
+
+    # Create a map centered around the US
+    m = folium.Map(location=[37.0902, -95.7129], zoom_start=4)
+
+    # Add markers to the map
+    for state_name, (lat, lon) in markers.items():
+        folium.Marker([lat, lon], popup=state_name).add_to(m)
+
+    # Save the map to HTML
+    map_html = m._repr_html_()
+
+    return map_html
 
 if __name__ == '__main__':
     app.run(debug=True)
