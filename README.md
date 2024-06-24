@@ -19,8 +19,6 @@ Navigate to the project directory:
 
 Place your CSV files in the specified directory.
 
-bash
-Copy code
 python app_or_pj3.py
 Access the application at http://127.0.0.1:5000.
 Deployment
