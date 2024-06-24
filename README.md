@@ -18,11 +18,6 @@ Navigate to the project directory:
 
 
 Place your CSV files in the specified directory.
-Run the script to populate the database:
-bash
-Copy code
-python populate_database.py
-Run the Flask application:
 
 bash
 Copy code
