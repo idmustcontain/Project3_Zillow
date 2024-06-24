@@ -134,8 +134,7 @@ def by_column(column_name):
     if row_with_highest_pricecut:
         result = {
             "message": f"The highest price cut (%) in {column_name}: {most_highest_pricecut}",
-            "RegionName": row_with_highest_pricecut.RegionName,
-            "StateName": row_with_highest_pricecut.StateName
+            "RegionName": row_with_highest_pricecut.RegionName
         }
     else:
         result = {"message": f"No data found for column {column_name}"}
@@ -178,7 +177,7 @@ def plot(region_name):
 
     plt.title(f'Price Cut(%) in {region_name}')
     plt.xlabel('Month')
-    plt.ylabel('Value')
+    plt.ylabel('Price Cut')
     plt.tight_layout()
     plt.savefig(img, format='png')
     img.seek(0)
