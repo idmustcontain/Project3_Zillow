@@ -13,7 +13,7 @@ This interactive dashboard explores housing market data, including price cuts. I
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/idmustcontain/data-analytics-dashboard.git
+   git clone https://github.com/idmustcontain/Project3_Zillow.git
 Navigate to the project directory:
 
 
