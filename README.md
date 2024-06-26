@@ -65,3 +65,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 1. Ensure that any additional setup steps specific to your project are included.
 2. Verify the deployment link once you have deployed your project to GitHub Pages.
 3. Ensure that the `LICENSE` file is included in your repository with the correct license details.
+### Acknowledgments
+I would like to thank the following for their contributions to this project:
+
+ChatGPT by OpenAI for providing valuable assistance and suggestions during the development of this project.
